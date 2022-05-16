@@ -1,0 +1,64 @@
+﻿<Window x:Class="LintelCreator.LintelCreatorWPF"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LintelCreator"
+             mc:Ignorable="d" 
+             Title="Перемычки" Height="500" Width="800" 
+             MinHeight="500" MinWidth="800" MaxHeight="500"
+             WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen" KeyDown="LintelCreatorWPF_KeyDown">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="300*"/>
+        </Grid.ColumnDefinitions>
+
+        <ComboBox x:Name="comboBox_LintelFamilies" Height="25" IsEditable="True" Margin="10,35,10,0" VerticalAlignment="Top" SelectionChanged="comboBox_LintelFamilies_SelectionChanged" VerticalContentAlignment="Center"/>
+        <Label x:Name="label_Familie" Content="Семейство:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+        <ListBox x:Name="listBox_SymbolsList" Height="240" Margin="10,90,10,0" VerticalAlignment="Top" SelectionChanged ="listBox_SymbolsList_SelectionChanged"/>
+        <Label x:Name="label_Types" Content="Тип:" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+        <TextBox x:Name="textBox_SymbolName" HorizontalAlignment="Left" Height="25" Margin="10,360,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" VerticalContentAlignment="Center"/>
+        <Label x:Name="label_SymbolName" Content="Имя типа:" HorizontalAlignment="Left" Margin="10,335,0,0" VerticalAlignment="Top" Width="80" Height="25" VerticalContentAlignment="Center"/>
+
+        <DataGrid x:Name="dataGrid_TypesParamList" Grid.Column="1" 
+                  Height="75" Margin="10,10,10,0" VerticalAlignment="Top" 
+                  CanUserAddRows="False" AutoGenerateColumns="False" VerticalContentAlignment="Center">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="dataGrid_TypesNamesTextColumn" Header="Параметр" Width="Auto" IsReadOnly="True" Binding="{Binding Path=ParameterValue.Definition.Name}"/>
+                <DataGridComboBoxColumn x:Name="dataGrid_TypesComboBoxColumn" Header="Тип" Width="*" DisplayMemberPath="Name" SelectedItemBinding="{Binding FamilySymbolValue, Mode=TwoWay}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DataGrid x:Name="dataGrid_DimensionsParamList" Grid.Column="1" Margin="10,90,10,0"
+                  CanUserAddRows="False" AutoGenerateColumns="False" VerticalAlignment="Top" Height="190" VerticalContentAlignment="Center">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="dataGrid_DimensionsNamesTextColumn" Header="Параметр" Width="Auto" IsReadOnly="True" Binding="{Binding Path=Name}"/>
+                <DataGridTextColumn x:Name="dataGrid_DimensionsValueColumn" Header="Значение" Width="*" IsReadOnly="False" Binding="{Binding Path=ValueString,Mode=TwoWay}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button x:Name="btn_SaveNewSymbol" Content="Сохранить тип" Margin="10,390,10,0" VerticalAlignment="Top" Height="20" Click="btn_SaveNewSymbol_Click"/>
+        <Button x:Name="btn_DeleteSymbol" Content="Удалить тип" Margin="10,415,10,0" VerticalAlignment="Top" Height="20" Click="btn_DeleteSymbol_Click"/>
+
+
+        <ComboBox x:Name="comboBox_OpeningHeight" Grid.Column="1" Margin="190,295,10,0" VerticalAlignment="Top" Height="25" VerticalContentAlignment="Center" SelectionChanged="comboBox_OpeningHeight_SelectionChanged" IsEditable="True"/>
+        <Label x:Name="label_OpeningHeight" Content="Параметер высоты проема:" HorizontalAlignment="Left" Margin="10,295,0,0" VerticalAlignment="Top" Width="180" Height="25" Grid.Column="1" VerticalContentAlignment="Center"/>
+
+        <ComboBox x:Name="comboBox_OpeningWidth" Grid.Column="1" Margin="190,325,10,0" VerticalAlignment="Top" Height="25" VerticalContentAlignment="Center" SelectionChanged="comboBox_OpeningWidth_SelectionChanged" IsEditable="True"/>
+        <Label x:Name="label_OpeningWidth" Content="Параметер ширины проема:" HorizontalAlignment="Left" Margin="10,325,0,0" VerticalAlignment="Top" Width="180" Height="25" Grid.Column="1" VerticalContentAlignment="Center"/>
+
+        <Label x:Name="label_OpeningHeightValueName" Content="Значение параметра высоты проема, мм:" HorizontalAlignment="Left" Margin="10,355,0,0" VerticalAlignment="Top" Width="258" Height="25" Grid.Column="1" VerticalContentAlignment="Center"/>
+        <Label x:Name="label_OpeningHeightValue" Content="" HorizontalAlignment="Left" Margin="270,355,0,0" VerticalAlignment="Top" Width="120" Height="25" Grid.Column="1" VerticalContentAlignment="Center"/>
+        <Label x:Name="label_OpeningWidthValueName" Content="Значение параметра ширины проема, мм:" HorizontalAlignment="Left" Margin="10,380,0,0" VerticalAlignment="Top" Width="258" Height="25" Grid.Column="1" VerticalContentAlignment="Center"/>
+        <Label x:Name="label_OpeningWidthValue" Content="" HorizontalAlignment="Left" Margin="270,380,0,0" VerticalAlignment="Top" Width="120" Height="25" Grid.Column="1" VerticalContentAlignment="Center"/>
+
+        <Button x:Name="btn_Ok" Content="Ок" HorizontalAlignment="Right" Margin="0,0,125,10" VerticalAlignment="Bottom" Width="100" Height="25" Click="btn_Ok_Click" Grid.Column="1"/>
+        <Button x:Name="btn_Cancel" Content="Отмена" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="100" Height="25" Click="btn_Cancel_Click" Grid.Column="1"/>
+
+
+
+    </Grid>
+</Window>
