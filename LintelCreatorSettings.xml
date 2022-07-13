@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <LintelCreatorSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SelectedLintelFamilieName>03.8_ПеремычкаСостовная_ПБ-ПБ</SelectedLintelFamilieName>
-  <SelectedFamilySymbolName>3ПБ 34-4_3ПБ 34-4_250мм</SelectedFamilySymbolName>
+  <SelectedLintelFamilieName>03.8_ПеремычкаСостовная_ПБ_ГОСТ 948-2016</SelectedLintelFamilieName>
+  <SelectedFamilySymbolName>2ПБ 10-1_120мм</SelectedFamilySymbolName>
   <SelectedOpeningHeightParameterName>Высота</SelectedOpeningHeightParameterName>
   <SelectedOpeningWidthParameterName>Ширина</SelectedOpeningWidthParameterName>
 </LintelCreatorSettings>

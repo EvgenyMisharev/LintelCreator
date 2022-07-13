@@ -115,8 +115,8 @@ namespace LintelCreator
                         openingWidthParam = windowOrDoor.Symbol.LookupParameter(OpeningWidthParamName);
                     }
 
-                    XYZ locationPoint = (windowOrDoor.Location as LocationPoint).Point + openingHeightParam.AsDouble() * XYZ.BasisZ;
                     Level level = doc.GetElement(windowOrDoor.LevelId) as Level;
+                    XYZ locationPoint = (windowOrDoor.Location as LocationPoint).Point - level.Elevation * XYZ.BasisZ + openingHeightParam.AsDouble() * XYZ.BasisZ;
 
                     using (Transaction t = new Transaction(doc))
                     {
