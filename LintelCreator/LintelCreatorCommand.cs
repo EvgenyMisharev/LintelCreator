@@ -51,13 +51,14 @@ namespace LintelCreator
                 .Cast<Family>()
                 .Where(f => f.FamilyCategory.Id.IntegerValue.Equals((int)BuiltInCategory.OST_GenericModel))
                 .Where(f => f.GetFamilySymbolIds() != null)
+                .Where(f => f.GetFamilySymbolIds().Count != 0)
                 .Where(f => (doc.GetElement(f.GetFamilySymbolIds().First()) as FamilySymbol).get_Parameter(BuiltInParameter.ALL_MODEL_MODEL).AsString() == "Перемычки составные")
                 .OrderBy(f => f.Name, new AlphanumComparatorFastString())
                 .ToList();
 
             if (lintelFamilysList.Count == 0)
             {
-                message = "В проекте не найдены семейства перемычек! Загрузите их в соответствии с инструкцией."; //ДАТЬ ССЫЛКУ НА ГУГЛ с ПЕРЕМЫЧКАМИ
+                message = "В проекте не найдены семейства перемычек! Загрузите их в соответствии с инструкцией. Для доступа к инструкции наведите на кнопку плагина и нажмите F1.";
                 return Result.Cancelled;
             }
 
@@ -67,19 +68,33 @@ namespace LintelCreator
                 ParameterSet windowOrDoorSymbolParameterSet = windowOrDoor.Symbol.Parameters;
                 foreach(Parameter param in windowOrDoorSymbolParameterSet)
                 {
+#if R2019 || R2020 || R2021 || R2022
                     if (((int)param.Definition.ParameterType).Equals((int)ParameterType.Length) && openingParameters.FirstOrDefault(p => p.Id == param.Id) == null)
                     {
                         openingParameters.Add(param);
                     }
+#else
+                    if (param.Definition.GetDataType().Equals(SpecTypeId.Length) && openingParameters.FirstOrDefault(p => p.Id == param.Id) == null)
+                    {
+                        openingParameters.Add(param);
+                    }
+#endif
                 }
 
                 ParameterSet windowOrDooInstanceParameterSet = windowOrDoor.Parameters;
                 foreach (Parameter param in windowOrDooInstanceParameterSet)
                 {
+#if R2019 || R2020 || R2021 || R2022
                     if (((int)param.Definition.ParameterType).Equals((int)ParameterType.Length) && openingParameters.FirstOrDefault(p => p.Id == param.Id) == null)
                     {
                         openingParameters.Add(param);
                     }
+#else
+                    if (param.Definition.GetDataType().Equals(SpecTypeId.Length) && openingParameters.FirstOrDefault(p => p.Id == param.Id) == null)
+                    {
+                        openingParameters.Add(param);
+                    }
+#endif
                 }
             }
             openingParameters = openingParameters.OrderBy(p => p.Definition.Name, new AlphanumComparatorFastString()).ToList();

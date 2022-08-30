@@ -146,10 +146,17 @@ namespace LintelCreator
                 ParameterSet symboolParameterSet = LintelTargetFamilySymbol.Parameters;
                 foreach(Parameter param in symboolParameterSet)
                 {
+#if R2019 || R2020 || R2021 || R2022
                     if (((int)(param.Definition).ParameterType).Equals((int)ParameterType.FamilyType))
                     {
                         symbolParametersCollection.Add(new SymboolParameters(param, Doc.GetElement(param.AsElementId()) as FamilySymbol));
                     }
+#else
+                    if (Category.IsBuiltInCategory(param.Definition.GetDataType()))
+                    {
+                        symbolParametersCollection.Add(new SymboolParameters(param, Doc.GetElement(param.AsElementId()) as FamilySymbol));
+                    }
+#endif
                 }
 
                 SymbolsListForTypesComboBoxColumn = new List<FamilySymbol>();
