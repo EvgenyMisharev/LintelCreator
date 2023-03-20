@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <LintelCreatorSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SelectedLintelFamilieName>03.8_ПеремычкаСостовная_2Уголка</SelectedLintelFamilieName>
-  <SelectedFamilySymbolName>2L63х5_200мм_1660мм</SelectedFamilySymbolName>
-  <SelectedOpeningHeightParameterName>ADSK_Размер_Высота</SelectedOpeningHeightParameterName>
-  <SelectedOpeningWidthParameterName>ADSK_Размер_Ширина</SelectedOpeningWidthParameterName>
+  <SelectedLintelFamilieName>03.8_ПеремычкаСостовная_Бетон-3Стержня</SelectedLintelFamilieName>
+  <SelectedFamilySymbolName>2100х30_Д8_3шт_100м</SelectedFamilySymbolName>
+  <SelectedOpeningHeightParameterName>Высота</SelectedOpeningHeightParameterName>
+  <SelectedOpeningWidthParameterName>Ширина</SelectedOpeningWidthParameterName>
 </LintelCreatorSettings>

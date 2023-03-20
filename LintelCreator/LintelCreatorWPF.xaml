@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              Title="Перемычки" Height="500" Width="800" 
              MinHeight="500" MinWidth="800" MaxHeight="500"
-             WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen" KeyDown="LintelCreatorWPF_KeyDown">
+             WindowStyle="SingleBorderWindow" ResizeMode="NoResize" Icon="Resources/citrus.ico" WindowStartupLocation="CenterScreen" KeyDown="LintelCreatorWPF_KeyDown">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
