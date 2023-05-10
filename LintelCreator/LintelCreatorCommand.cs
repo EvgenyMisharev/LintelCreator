@@ -4,8 +4,6 @@ using Autodesk.Revit.UI.Selection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LintelCreator
 {
@@ -131,14 +129,14 @@ namespace LintelCreator
                     }
 
                     Level level = doc.GetElement(windowOrDoor.LevelId) as Level;
-                    XYZ locationPoint = (windowOrDoor.Location as LocationPoint).Point - level.Elevation * XYZ.BasisZ + openingHeightParam.AsDouble() * XYZ.BasisZ;
+                    XYZ locationPoint = (windowOrDoor.Location as LocationPoint).Point - level.ProjectElevation * XYZ.BasisZ + openingHeightParam.AsDouble() * XYZ.BasisZ;
 
                     using (Transaction t = new Transaction(doc))
                     {
                         t.Start("Создание и поворот перемычки");
                         lintelTargetFamilySymbol.Activate();
-                        newLintel = doc.Create.NewFamilyInstance(locationPoint, lintelTargetFamilySymbol, level, Autodesk.Revit.DB.Structure.StructuralType.NonStructural) as FamilyInstance;
-                        
+                        newLintel = doc.Create.NewFamilyInstance(locationPoint, lintelTargetFamilySymbol, level, Autodesk.Revit.DB.Structure.StructuralType.NonStructural);
+
                         if (!windowOrDoor.FacingOrientation.IsAlmostEqualTo(newLintel.FacingOrientation))
                         {
                             Line rotateAxis = Line.CreateBound((newLintel.Location as LocationPoint).Point, (newLintel.Location as LocationPoint).Point + 1 * XYZ.BasisZ);
@@ -156,9 +154,13 @@ namespace LintelCreator
                     using (Transaction t = new Transaction(doc))
                     {
                         t.Start("Заполнение параметра \"Длина линии видимости\"");
-                        if (newLintel.LookupParameter("Длина линии видимости") != null)
+                        Parameter visibilityLineLenghtParam = newLintel.LookupParameter("Длина линии видимости");
+                        if (visibilityLineLenghtParam != null)
                         {
-                            newLintel.LookupParameter("Длина линии видимости").Set((newLintel.Location as LocationPoint).Point.Z - level.Elevation);
+                            if (newLintel.get_Parameter(BuiltInParameter.INSTANCE_ELEVATION_PARAM) != null)
+                            {
+                                newLintel.LookupParameter("Длина линии видимости").Set(newLintel.get_Parameter(BuiltInParameter.INSTANCE_ELEVATION_PARAM).AsDouble());
+                            }
                         }
                         t.Commit();
                     }

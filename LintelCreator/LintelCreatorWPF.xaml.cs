@@ -1,25 +1,13 @@
 ﻿using Autodesk.Revit.DB;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace LintelCreator
 {
-    /// <summary>
-    /// Логика взаимодействия для LintelCreatorWPF.xaml
-    /// </summary>
     public partial class LintelCreatorWPF : Window
     {
         Document Doc;
@@ -128,8 +116,15 @@ namespace LintelCreator
 
             listBox_SymbolsList.ItemsSource = FamilySymbolsForSymbolsList;
             listBox_SymbolsList.DisplayMemberPath = "Name";
-
-            textBox_SymbolName.Text = "";
+            if(FamilySymbolsForSymbolsList.Count != 0)
+            {
+                listBox_SymbolsList.SelectedItem = listBox_SymbolsList.Items[0];
+                textBox_SymbolName.Text = (listBox_SymbolsList.Items[0] as FamilySymbol).Name;
+            }
+            else
+            {
+                textBox_SymbolName.Text = "";
+            }
         }
 
         private void listBox_SymbolsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -282,10 +277,11 @@ namespace LintelCreator
                             FamilySymbolsForSymbolsList.Add(Doc.GetElement(symbolId) as FamilySymbol);
                         }
                     }
+                    Doc.Regenerate();
 
                     listBox_SymbolsList.ItemsSource = FamilySymbolsForSymbolsList;
                     listBox_SymbolsList.DisplayMemberPath = "Name";
-                    listBox_SymbolsList.SelectedItem = selectedFamilySymbol;
+                    listBox_SymbolsList.SelectedItem = listBox_SymbolsList.Items.Cast<FamilySymbol>().ToList().FirstOrDefault(fs => fs.Id == selectedFamilySymbol.Id);
                     LintelTargetFamilySymbol = selectedFamilySymbol;
                 }
                 t.Commit();
